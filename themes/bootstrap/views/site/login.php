@@ -26,13 +26,13 @@ $this->breadcrumbs=array(
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->textFieldRow($model,'username'); ?>
+	<?php echo $form->textFieldControlGroup($model,'username'); ?>
 
-	<?php echo $form->passwordFieldRow($model,'password',array(
+	<?php echo $form->passwordFieldControlGroup($model,'password',array(
         'hint'=>'Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>',
     )); ?>
 
-	<?php echo $form->checkBoxRow($model,'rememberMe'); ?>
+	<?php echo $form->checkBoxControlGroup($model,'rememberMe'); ?>
 
 	<div class="form-actions">
         <?php echo TbHtml::formActions(array(

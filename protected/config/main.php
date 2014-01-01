@@ -26,6 +26,7 @@ return array(
 		'application.components.*',
         'ext.YiiMailer.YiiMailer',
         'bootstrap.helpers.TbHtml',
+        'bootstrap.helpers.TbArray',
 	),
 
 	'modules'=>array(

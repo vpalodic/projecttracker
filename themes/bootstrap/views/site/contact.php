@@ -1,21 +1,18 @@
 <?php
-/* @var $this SiteController */
-/* @var $model ContactForm */
-/* @var $form TbActiveForm */
-
-$this->pageTitle=Yii::app()->name . ' - Contact Us';
-$this->breadcrumbs=array(
-	'Contact',
-);
+    /* @var $this SiteController */
+    /* @var $model ContactForm */
+    /* @var $form TbActiveForm */
+    $this->pageTitle = Yii::app()->name . ' - Contact Us';
+    $this->breadcrumbs = array('Contact');
 ?>
 
-<h1>Contact Us</h1>
+<h2>Contact Us</h2>
 
-<?php if(Yii::app()->user->hasFlash('contact')): ?>
+<?php if(Yii::app()->user->hasFlash('contact')) : ?>
 
-    <?php $this->widget('bootstrap.widgets.TbAlert', array(
-        'alerts'=>array('contact'),
-    )); ?>
+<?php $this->widget('bootstrap.widgets.TbAlert',
+                    array('alerts' => array('contact'),));
+?>
 
 <?php else: ?>
 
@@ -23,44 +20,68 @@ $this->breadcrumbs=array(
 If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
 </p>
 
-<div class="form">
+<div class = "form">
+    <?php
+        $form = $this->beginWidget('bootstrap.widgets.TbActiveForm',
+                                   array('layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
+                                         'id' => 'contact-form',
+                                         'enableAjaxValidation' => true,
+                                         'enableClientValidation' => true,
+                                         'clientOptions' => array('validateOnSubmit' => true),
+                                         'htmlOptions' => array('enctype' => 'multipart/form-data')
+                                         ));
+    ?>
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'contact-form',
-    'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-)); ?>
+    <fieldset>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+        <legend>Fields with <span class="required">*</span> are required.</legend>
 
-	<?php echo $form->errorSummary($model); ?>
+        <?php echo $form->errorSummary($model); ?>
 
-    <?php echo $form->textField($model,'name'); ?>
+        <?php
+            echo $form->textFieldControlGroup($model,
+                                              'name');
+        ?>
 
-    <?php echo $form->textField($model,'email'); ?>
+        <?php
+            echo $form->emailFieldControlGroup($model,
+                                               'email');
+        ?>
 
-    <?php echo $form->textField($model,'subject',array('size'=>60,'maxlength'=>128)); ?>
+        <?php echo $form->textFieldControlGroup($model,
+                                                'subject',
+                                                array('maxlength'=>128));
+        ?>
 
-    <?php echo $form->textArea($model,'body',array('rows'=>6, 'class'=>'span8')); ?>
+        <?php echo $form->textAreaControlGroup($model,
+                                               'body',
+                                               array('rows'=>6, 'class'=>'span5'));
+        ?>
 
-	<?php if(CCaptcha::checkRequirements()): ?>
-		<?php //echo $form->captchaRow($model,'verifyCode',array(
-            //'hint'=>'Please enter the letters as they are shown in the image above.<br/>Letters are not case-sensitive.',
-        //)); ?>
-	<?php endif; ?>
+        <?php if(CCaptcha::checkRequirements()) : ?>
+            <div class="controls">
+                    <?php $this->widget('CCaptcha'); ?>
+            </div>
 
-	<div class="form-actions">
-        <?php echo TbHtml::formActions(array(
-                                             TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
-                                             TbHtml::resetButton('Reset'),
-        )); ?>
-	</div>
+            <?php echo $form->textFieldControlGroup($model,
+                                                    'verifyCode');
+            ?>
 
-<?php $this->endWidget(); ?>
+            <div class="control-group">
+                <p class="hint">Please enter the letters as they are shown in the image above.
+                <br/>Letters are not case-sensitive.</p>
+            </div>
+        <?php endif; ?>
+
+    </fieldset>
+
+    <?php
+        echo TbHtml::formActions(array(TbHtml::submitButton('Submit',
+                                                            array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+                                       ));
+    ?>
+
+    <?php $this->endWidget(); ?>
 
 </div><!-- form -->
-
 <?php endif; ?>
