@@ -20,7 +20,7 @@
 If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
 </p>
 
-<div class = "form">
+<div class="form">
     <?php
         $form = $this->beginWidget('bootstrap.widgets.TbActiveForm',
                                    array('layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
@@ -34,7 +34,7 @@ If you have business inquiries or other questions, please fill out the following
 
     <fieldset>
 
-        <legend>Fields with <span class="required">*</span> are required.</legend>
+        <legend class="note">Fields with <span class="required">*</span> are required.</legend>
 
         <?php echo $form->errorSummary($model); ?>
 
@@ -84,4 +84,5 @@ If you have business inquiries or other questions, please fill out the following
     <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
 <?php endif; ?>

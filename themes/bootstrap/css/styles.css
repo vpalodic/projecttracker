@@ -1,3 +1,62 @@
-#page {
+body {
     padding-top: 60px;
+}
+
+#page {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background: white;
+	border: 0px solid #C9E0ED;
+}
+
+#footer
+{
+	padding: 10px;
+	margin: 10px 20px;
+	font-size: 0.8em;
+	text-align: center;
+	border-top: 1px solid #C9E0ED;
+}
+
+#content
+{
+    padding: 20px;
+}
+
+#sidebar
+{
+	padding: 20px 20px 20px 0;
+}
+
+#footer
+{
+	padding: 10px;
+	margin: 10px 20px;
+	font-size: 0.8em;
+	text-align: center;
+	border-top: 1px solid #C9E0ED;
+}
+
+#logo
+{
+	padding: 10px 20px;
+	font-size: 1.5em;
+}
+
+div.view
+{
+	padding: 10px;
+	margin: 10px 0;
+	border-bottom: 1px solid #C9E0ED;
+}
+
+div.breadcrumbs
+{
+	font-size: 0.9em;
+	padding: 5px 20px;
+}
+
+div.breadcrumbs span
+{
+	font-weight: bold;
 }

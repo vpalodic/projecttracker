@@ -1,37 +1,68 @@
 <?php
-/* @var $this ProjectController */
-/* @var $model Project */
+	/* @var $this ProjectController */
+	/* @var $model Project */
 ?>
 
 <?php
-$this->breadcrumbs=array(
-	'Projects'=>array('index'),
-	$model->name,
-);
+	$this->breadcrumbs = array('Projects' => array('index'), $model->name,);
 
-$this->menu=array(
-	array('label'=>'List Project', 'url'=>array('index')),
-	array('label'=>'Create Project', 'url'=>array('create')),
-	array('label'=>'Update Project', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Project', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Project', 'url'=>array('admin')),
-);
+	$this->menu = array(array('label' => 'List Projects',
+							  'url' => array('index')
+							 ),
+						array('label' => 'Create Project',
+							  'url' => array('create')
+							 ),
+						array('label' => 'Update Project',
+							  'url' => array('update', 'id' => $model->id)
+							 ),
+						array('label' => 'Delete Project',
+							  'url' => '#',
+							  'linkOptions' => array('submit' => array('delete',
+							  										   'id' => $model->id
+							  										  ),
+							  						 'confirm' => 'Are you sure you want to delete this item?'
+							 						)
+							 ),
+						array('label' => 'Manage Projects',
+							  'url' => array('admin')
+							 ),
+						array('label' => 'Create New Project Issue',
+							  'url' => array('issue/create',
+							  				 'pid' => $model->id
+							  				)
+							 ),
+					   );
 ?>
 
-<h1>View Project #<?php echo $model->id; ?></h1>
+<h2><?php echo $model->name; ?> Details</h2>
 
-<?php $this->widget('zii.widgets.CDetailView',array(
-    'htmlOptions' => array(
-        'class' => 'table table-striped table-condensed table-hover',
-    ),
-    'data'=>$model,
-    'attributes'=>array(
-		'id',
-		'name',
-		'description',
-		'create_time',
-		'create_user_id',
-		'update_time',
-		'update_user_id',
-	),
-)); ?>
+<?php
+	$this->widget('yiiwheels.widgets.detail.WhDetailView',
+				  array('type' => array(TbHtml::GRID_TYPE_STRIPED,
+				  						TbHtml::GRID_TYPE_BORDERED,
+				  						TbHtml::GRID_TYPE_CONDENSED,
+				  						TbHtml::GRID_TYPE_HOVER),
+				  		'data' => $model,
+				  		'attributes' => array('id',
+				  							  'name',
+				  							  'description',
+				  							  'create_time',
+				  							  'create_user_id',
+				  							  'update_time',
+				  							  'update_user_id',
+				  							 ),
+				  	   )
+				 );
+?>
+
+<br>
+
+<h3><?php echo $model->name; ?> Issues</h3>
+
+<?php
+	$this->widget('bootstrap.widgets.TbListView',
+				  array('dataProvider' => $issueDataProvider,
+				  		'itemView' => '/issue/_view',
+				  	   )
+				 );
+?>

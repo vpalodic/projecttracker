@@ -11,7 +11,7 @@
 <?php if(Yii::app()->user->hasFlash('contact')) : ?>
 
 <?php $this->widget('bootstrap.widgets.TbAlert',
-					array('alerts' => array('contact'),));
+                    array('alerts' => array('contact'),));
 ?>
 
 <?php else: ?>
@@ -20,7 +20,7 @@
 If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
 </p>
 
-<div class = "form">
+<div class="form">
     <?php
         $form = $this->beginWidget('bootstrap.widgets.TbActiveForm',
                                    array('layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
@@ -34,9 +34,9 @@ If you have business inquiries or other questions, please fill out the following
 
     <fieldset>
 
-        <legend>Fields with <span class="required">*</span> are required.</legend>
+        <legend class="note">Fields with <span class="required">*</span> are required.</legend>
 
-    	<?php echo $form->errorSummary($model); ?>
+        <?php echo $form->errorSummary($model); ?>
 
         <?php
             echo $form->textFieldControlGroup($model,
@@ -58,30 +58,31 @@ If you have business inquiries or other questions, please fill out the following
                                                array('rows'=>6, 'class'=>'span5'));
         ?>
 
-		<?php if(CCaptcha::checkRequirements()) : ?>
-			<div class="controls">
-					<?php $this->widget('CCaptcha'); ?>
-			</div>
+        <?php if(CCaptcha::checkRequirements()) : ?>
+            <div class="controls">
+                    <?php $this->widget('CCaptcha'); ?>
+            </div>
 
-			<?php echo $form->textFieldControlGroup($model,
-            	                                    'verifyCode');
-        	?>
+            <?php echo $form->textFieldControlGroup($model,
+                                                    'verifyCode');
+            ?>
 
-			<div class="control-group">
-				<p class="hint">Please enter the letters as they are shown in the image above.
-				<br/>Letters are not case-sensitive.</p>
-			</div>
-		<?php endif; ?>
+            <div class="control-group">
+                <p class="hint">Please enter the letters as they are shown in the image above.
+                <br/>Letters are not case-sensitive.</p>
+            </div>
+        <?php endif; ?>
 
     </fieldset>
 
     <?php
-		echo TbHtml::formActions(array(TbHtml::submitButton('Submit',
-															array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
-									   ));
+        echo TbHtml::formActions(array(TbHtml::submitButton('Submit',
+                                                            array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+                                       ));
     ?>
 
     <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
 <?php endif; ?>
