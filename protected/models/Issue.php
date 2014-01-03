@@ -22,7 +22,7 @@
  * @property User $owner
  * @property Project $project
  */
-class Issue extends CActiveRecord
+class Issue extends ProjectTrackerActiveRecord
 {
 	// Constants for the issue.type_id field.
 	const TYPE_BUG = 0;
@@ -52,16 +52,13 @@ class Issue extends CActiveRecord
 		return array(array('name, description',
 						   'required'
 						  ),
-					 array('project_id, type_id, status_id, owner_id, requester_id, create_user_id, update_user_id',
+					 array('project_id, type_id, status_id, owner_id, requester_id',
 					 	   'numerical',
 					 	   'integerOnly' => true
 					 	  ),
 					 array('name',
 					 	   'length',
 					 	   'max' => 255
-					 	  ),
-					 array('create_time, update_time',
-					 	   'safe'
 					 	  ),
 					 array('type_id',
 					 	   'in',

@@ -1,24 +1,24 @@
 <?php
-	/* @var $this ProjectController */
-	/* @var $dataProvider CActiveDataProvider */
+    /* @var $this UserController */
+    /* @var $dataProvider CActiveDataProvider */
 ?>
 
 <?php
-	$this->breadcrumbs = array('Projects',);
+	$this->breadcrumbs = array('Users',);
 
-	$this->menu = array(array('label' => 'List Projects',
+	$this->menu = array(array('label' => 'List Users',
 							  'url' => array('index')
 							 ),
-						array('label' => 'Create Project',
+						array('label' => 'Create User',
 							  'url' => array('create')
 							 ),
-						array('label' => 'Manage Projects',
+						array('label' => 'Manage Users',
 							  'url' => array('admin')
 							 ),
 					   );
 ?>
 
-<h2>Projects</h2>
+<h2>Users</h2>
 
 <?php
 	$this->widget('bootstrap.widgets.TbListView',

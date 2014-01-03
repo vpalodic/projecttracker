@@ -1,6 +1,6 @@
 <?php
-    /* @var $this ProjectController */
-    /* @var $model Project */
+    /* @var $this UserController */
+    /* @var $model User */
     /* @var $form TbActiveForm */
 ?>
 
@@ -9,7 +9,7 @@
     <?php
         $form = $this->beginWidget('bootstrap.widgets.TbActiveForm',
                                    array('layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
-                                         'id' => 'project-form',
+                                         'id' => 'user-form',
                                          'enableAjaxValidation' => true,
                                          'enableClientValidation' => true,
                                          'clientOptions' => array('validateOnSubmit' => true,
@@ -27,7 +27,7 @@
         
         <?php
             echo $form->textFieldControlGroup($model,
-                                              'name',
+                                              'username',
                                               array('span' => 3,
                                                     'maxlength' => 255
                                                    )
@@ -35,12 +35,30 @@
         ?>
 
         <?php
-            echo $form->textAreaControlGroup($model,
-                                             'description',
-                                             array('rows' => 6,
-                                                   'span' => 3
-                                                  )
-                                            );
+            echo $form->emailFieldControlGroup($model,
+                                               'email',
+                                               array('span' => 3,
+                                                     'maxlength' => 255
+                                                    )
+                                              );
+        ?>
+
+        <?php
+            echo $form->passwordFieldControlGroup($model,
+                                                  'password',
+                                                  array('span' => 3,
+                                                        'maxlength' => 255
+                                                       )
+                                                 );
+        ?>
+
+        <?php
+            echo $form->passwordFieldControlGroup($model,
+                                                  'password_repeat',
+                                                  array('span' => 3,
+                                                        'maxlength' => 255
+                                                       )
+                                                 );
         ?>
     </fieldset>
 

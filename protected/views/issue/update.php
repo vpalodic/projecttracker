@@ -5,13 +5,15 @@
 
 <?php
 	$this->breadcrumbs = array('Projects' => array('project/index'),
-							   $model->project->name => array('project/view',
-												   'id' => $model->project_id
-												  ),
+							   CHtml::encode($model->project->name) => array('project/view',
+                                                                             'id' => $model->project_id
+                                                                            ),
 							   'Issues' => array('index',
-							   							 'pid' => $model->project_id
-							   							),
-							   $model->name => array('view', 'id' => $model->id),
+                                                 'pid' => $model->project_id
+                                                ),
+							   CHtml::encode($model->name) => array('view',
+                                                                    'id' => $model->id
+                                                                   ),
 							   'Update',
 							  );
 

@@ -1,11 +1,10 @@
 <?php
 	/* @var $this IssueController */
 	/* @var $model Issue */
+    /* @var $project Project */
 ?>
 
 <?php
-	$project = $this->loadProject($_GET['pid']);
-
 	$this->breadcrumbs = array('Projects' => array('project/index'),
 							   $project->name => array('project/view',
 							   						   'id' => $project->id
@@ -13,7 +12,7 @@
 							   'Issues' => array('index',
 							   					 'pid' => $project->id
 							   					),
-							   'New',
+							   'Create',
 							  );
 
 	$this->menu = array(array('label' => 'List Project Issues',
@@ -30,6 +29,6 @@
 ?>
 
 
-<h2>New <?php echo CHtml::encode($project->name); ?> Issue</h2>
+<h2>Create <?php echo CHtml::encode($project->name); ?> Issue</h2>
 
 <?php $this->renderPartial('_form', array('model' => $model)); ?>

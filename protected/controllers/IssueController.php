@@ -78,7 +78,10 @@ class IssueController extends Controller
 			}
 		}
 
-		$this->render('create', array('model' => $model,));
+		$this->render('create', array('model' => $model,
+                                      'project' => $this->_project,
+                                     )
+                     );
 	}
 
 	/**
@@ -138,7 +141,10 @@ class IssueController extends Controller
 												array('criteria' => $criteria)
 											   );
 			
-		$this->render('index', array('dataProvider' => $dataProvider,));
+		$this->render('index', array('dataProvider' => $dataProvider,
+                                     'project' => $this->_project
+                                    )
+                     );
 	}
 
 	/**

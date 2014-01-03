@@ -12,8 +12,10 @@
                                          'id' => 'issue-form',
                                          'enableAjaxValidation' => true,
                                          'enableClientValidation' => true,
-                                         'clientOptions' => array('validateOnSubmit' => true),
-                                        ));
+                                         'clientOptions' => array('validateOnSubmit' => true,
+                                                                 ),
+                                        )
+                                  );
     ?>
 
     <fieldset>
@@ -26,49 +28,55 @@
         <?php
             echo $form->textFieldControlGroup($model,
                                               'name',
-                                              array('span' => 5,
+                                              array('span' => 3,
                                                     'maxlength' => 255
-                                                   ));
+                                                   )
+                                             );
         ?>
 
         <?php
             echo $form->textAreaControlGroup($model,
                                              'description',
                                              array('rows' => 6,
-                                                   'span' => 5
-                                                  ));
+                                                   'span' => 3
+                                                  )
+                                            );
         ?>
 
         <?php
             echo $form->dropDownListControlGroup($model,
                                                  'type_id',
                                                  $model->typeOptions,
-                                                 array('span' => 5
-                                                      ));
+                                                 array('span' => 3
+                                                      )
+                                                );
         ?>
 
         <?php
             echo $form->dropDownListControlGroup($model,
                                                  'status_id',
                                                  $model->statusOptions,
-                                                 array('span' => 5
-                                                      ));
+                                                 array('span' => 3
+                                                      )
+                                                );
         ?>
 
         <?php
             echo $form->dropDownListControlGroup($model,
                                                  'owner_id',
                                                  $model->project->userOptions,
-                                                 array('span' => 5
-                                                      ));
+                                                 array('span' => 3
+                                                      )
+                                                );
         ?>
 
         <?php
             echo $form->dropDownListControlGroup($model,
                                                  'requester_id',
                                                  $model->project->userOptions,
-                                                 array('span' => 5
-                                                      ));
+                                                 array('span' => 3
+                                                      )
+                                                );
         ?>
     </fieldset>
 
@@ -76,7 +84,8 @@
         <?php
             echo TbHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',
                                       array('color' => TbHtml::BUTTON_COLOR_PRIMARY,
-                                           ));
+                                           )
+                                     );
         ?>
     </div>
 

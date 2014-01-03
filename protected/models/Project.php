@@ -16,7 +16,7 @@
  * @property Issue[] $issues
  * @property User[] $users
  */
-class Project extends CActiveRecord
+class Project extends ProjectTrackerActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -36,16 +36,9 @@ class Project extends CActiveRecord
 		return array(array('name, description',
 						   'required'
 						  ),
-					 array('create_user_id, update_user_id',
-					 	   'numerical',
-					 	   'integerOnly' => true
-					 	  ),
 					 array('name',
 					 	   'length',
 					 	   'max' => 255
-					 	  ),
-					 array('create_time, update_time',
-					 	   'safe'
 					 	  ),
 					 // The following rule is used by search().
 					 // @todo Please remove those attributes that should not be searched.

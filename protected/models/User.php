@@ -18,9 +18,14 @@
  * @property Issue[] $issues
  * @property Issue[] $issues1
  * @property Project[] $projects
+ *
+ * The following are added properties
+ * @property $password_repeat
  */
-class User extends CActiveRecord
+class User extends ProjectTrackerActiveRecord
 {
+    public $password_repeat;
+    
 	/**
 	 * @return string the associated database table name
 	 */
@@ -36,14 +41,35 @@ class User extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('username, email, password', 'required'),
-			array('create_user_id, update_user_id', 'numerical', 'integerOnly'=>true),
-			array('username, email, password', 'length', 'max'=>255),
-			array('last_login_time, create_time, update_time', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, username, email, password, last_login_time, create_time, create_user_id, update_time, update_user_id', 'safe', 'on'=>'search'),
+		return array(array('username, email, password',
+                           'required'
+                          ),
+                     array('username, email, password',
+                           'length',
+                           'max' => 255
+                          ),
+                     array('username, email',
+                           'unique'
+                          ),
+                     array('email',
+                           'email'
+                          ),
+                     array('password',
+                           'compare',
+                           'on' => 'insert update'
+                          ),
+                     array(' password_repeat',
+                     	   'required',
+                     	   'on' => 'insert update'
+                     	  ),
+                     array('password_repeat',
+                           'safe'
+                          ),
+                     // The following rule is used by search().
+                     // @todo Please remove those attributes that should not be searched.
+                     array('id, username, email, password, last_login_time, create_time, create_user_id, update_time, update_user_id',
+                           'safe',
+                           'on' => 'search'),
 		);
 	}
 
@@ -95,7 +121,7 @@ class User extends CActiveRecord
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('username',$this->username,true);
@@ -108,7 +134,7 @@ class User extends CActiveRecord
 		$criteria->compare('update_user_id',$this->update_user_id);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -121,5 +147,37 @@ class User extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+    /**
+     * apply a hash on the password before we store it in the database
+     */
+    protected function afterValidate()
+    {
+        parent::afterValidate();
+        
+        if(!$this->hasErrors()) {
+            $this->password = $this->hashPassword($this->password);
+        }
+    }
+    
+    /**
+     * Generates the password hash.
+     * @param string password
+     * @return string hash
+     */
+    public function hashPassword($password)
+    {
+        return md5($password);
+    }
+
+	/**
+	 * Checks if the given password is correct.
+	 * @param string the password to be validated
+	 * @return boolean whether the password is valid
+	 */
+	public function validatePassword($password)
+	{
+		return $this->hashPassword($password) === $this->password;
 	}
 }

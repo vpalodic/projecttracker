@@ -34,9 +34,10 @@ return array(
             'generatorPaths' => array(
                 'bootstrap.gii',
             ),
-			'class'=>'system.gii.GiiModule',
-			'password'=>'ProjectTracker2014#',
+			'class' => 'system.gii.GiiModule',
+			'password' => false,
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
+//			'ipFilters' => false,
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
 	),
@@ -93,13 +94,10 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
-				// uncomment the following to show log messages on web pages
-				/*
-				array(
+/*				array(
 					'class'=>'CWebLogRoute',
 				),
-				*/
-			),
+*/			),
 		),
 	),
 

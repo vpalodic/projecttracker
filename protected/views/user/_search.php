@@ -1,6 +1,6 @@
 <?php
-    /* @var $this IssueController */
-    /* @var $model Issue */
+    /* @var $this UserController */
+    /* @var $model User */
     /* @var $form CActiveForm */
 ?>
 
@@ -24,7 +24,7 @@
 
     <?php
         echo $form->textFieldControlGroup($model,
-                                          'name',
+                                          'username',
                                           array('span' => 3,
                                                 'maxlength' => 255
                                                )
@@ -32,40 +32,20 @@
     ?>
 
     <?php
-        echo $form->textAreaControlGroup($model,
-                                         'description',
-                                         array('rows' => 6,
-                                               'span' => 3
-                                              )
-                                        );
+        echo $form->emailFieldControlGroup($model,
+                                           'email',
+                                           array('span' => 3,
+                                                 'maxlength' => 255
+                                                )
+                                          );
     ?>
 
-    <?php echo $form->textFieldControlGroup($model,
-                                            'type_id',
-                                            array('span' => 3,
-                                                 )
-                                           );
-    ?>
-
-    <?php echo $form->textFieldControlGroup($model,
-                                            'status_id',
-                                            array('span' => 3,
-                                                 )
-                                           );
-    ?>
-
-    <?php echo $form->textFieldControlGroup($model,
-                                            'owner_id',
-                                            array('span' => 3,
-                                                 )
-                                           );
-    ?>
-
-    <?php echo $form->textFieldControlGroup($model,
-                                            'requester_id',
-                                            array('span' => 3,
-                                                 )
-                                           );
+    <?php
+        echo $form->textFieldControlGroup($model,
+                                          'last_login_time',
+                                          array('span' => 3,
+                                               )
+                                         );
     ?>
 
     <?php

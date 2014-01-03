@@ -4,7 +4,9 @@
 ?>
 
 <?php
-	$this->breadcrumbs = array('Projects' => array('index'), $model->name,);
+	$this->breadcrumbs = array('Projects' => array('index'),
+                               CHtml::encode($model->name),
+                              );
 
 	$this->menu = array(array('label' => 'List Projects',
 							  'url' => array('index')
@@ -13,7 +15,8 @@
 							  'url' => array('create')
 							 ),
 						array('label' => 'Update Project',
-							  'url' => array('update', 'id' => $model->id)
+							  'url' => array('update',
+                                             'id' => $model->id)
 							 ),
 						array('label' => 'Delete Project',
 							  'url' => '#',
@@ -26,7 +29,7 @@
 						array('label' => 'Manage Projects',
 							  'url' => array('admin')
 							 ),
-						array('label' => 'Create New Project Issue',
+						array('label' => 'Create New Issue',
 							  'url' => array('issue/create',
 							  				 'pid' => $model->id
 							  				)
@@ -34,7 +37,7 @@
 					   );
 ?>
 
-<h2><?php echo $model->name; ?> Details</h2>
+<h2><?php echo CHtml::encode($model->name); ?> Details</h2>
 
 <?php
 	$this->widget('yiiwheels.widgets.detail.WhDetailView',
@@ -57,7 +60,7 @@
 
 <br>
 
-<h3><?php echo $model->name; ?> Issues</h3>
+<h3><?php echo CHtml::encode($model->name); ?> Issues</h3>
 
 <?php
 	$this->widget('bootstrap.widgets.TbListView',

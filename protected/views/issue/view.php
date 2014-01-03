@@ -5,13 +5,13 @@
 
 <?php
 	$this->breadcrumbs = array('Projects' => array('project/index'),
-							   $model->project->name => array('project/view',
-							   								  'id' => $model->project_id
-							   								 ),
+							   CHtml::encode($model->project->name) => array('project/view',
+                                                                             'id' => $model->project_id
+                                                                            ),
 							   'Issues' => array('index',
 							   					 'pid' => $model->project_id
 							   					),
-							   $model->name,
+							   CHtml::encode($model->name),
 							  );
 
 	$this->menu = array(array('label' => 'List Project Issues',
@@ -45,7 +45,7 @@
 					   );
 ?>
 
-<h2>View <?php echo CHtml::encode($model->name); ?></h2>
+<h2><?php echo CHtml::encode($model->name); ?> Details</h2>
 
 <?php
 	$this->widget('yiiwheels.widgets.detail.WhDetailView',

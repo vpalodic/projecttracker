@@ -1,11 +1,10 @@
 <?php
 	/* @var $this IssueController */
 	/* @var $dataProvider CActiveDataProvider */
+    /* @var $project Project */
 ?>
 
 <?php
-	$project = $this->loadProject($_GET['pid']);
-
 	$this->breadcrumbs = array('Projects' => array('project/index'),
 							   $project->name => array('project/view',
 							   						   'id' => $project->id
@@ -39,5 +38,6 @@
 	$this->widget('bootstrap.widgets.TbListView',
 				  array('dataProvider' => $dataProvider,
 				  		'itemView' => '_view',
-				  	   ));
+				  	   )
+                 );
 ?>
