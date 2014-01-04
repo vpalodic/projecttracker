@@ -1,7 +1,7 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
 <div class="row-fluid">
-    <div class="span2">
+    <div class="span3">
         <div id="sidebar">
         <?php
             $this->beginWidget('zii.widgets.CPortlet',

@@ -18,11 +18,12 @@
         $form = $this->beginWidget('bootstrap.widgets.TbActiveForm',
                                    array('layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
                                          'id' => 'login-form',
-                                         'fluid' => true,
                                          'enableAjaxValidation' => true,
                                          'enableClientValidation' => true,
-                                         'clientOptions' => array('validateOnSubmit' => true),
-                                         ));
+                                         'clientOptions' => array('validateOnSubmit' => true,
+                                                                 ),
+                                        )
+                                  );
     ?>
 
     <fieldset>
@@ -31,25 +32,35 @@
 
     	<?php echo $form->errorSummary($model); ?>
 
-        <?php echo $form->textFieldControlGroup($model,
-                                                'username',
-                                                array('help' => 'Enter a valid username or e-mail address'));
+        <?php
+            echo $form->textFieldControlGroup($model,
+                                              'username',
+                                              array('help' => 'Enter a valid username or e-mail address',
+                                                   )
+                                             );
         ?>
 
-        <?php echo $form->passwordFieldControlGroup($model,
-                                                    'password');
+        <?php
+            echo $form->passwordFieldControlGroup($model,
+                                                  'password'
+                                                 );
         ?>
 
-        <?php echo $form->checkBoxControlGroup($model,
-                                               'rememberMe');
+        <?php
+            echo $form->checkBoxControlGroup($model,
+                                             'rememberMe'
+                                            );
         ?>
 
     </fieldset>
 
     <?php
         echo TbHtml::formActions(array(TbHtml::submitButton('Login',
-                                                            array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
-                                       ));
+                                                            array('color' => TbHtml::BUTTON_COLOR_PRIMARY,
+                                                                 )
+                                                           ),
+                                      )
+                                );
     ?>
 
 	<?php $this->endWidget(); ?>

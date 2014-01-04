@@ -4,6 +4,7 @@ class m140101_160135_create_project_table extends CDbMigration
 {
 	public function up()
 	{
+		// Create the project table
 		$this->createTable('project',
 						   array('id' => 'pk',
 						    	 'name' => 'string NOT NULL',

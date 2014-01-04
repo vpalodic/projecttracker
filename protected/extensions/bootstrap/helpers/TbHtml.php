@@ -1494,6 +1494,8 @@ EOD;
      */
     public static function activeTextField($model, $attribute, $htmlOptions = array())
     {
+        parent::resolveNameID($model,$attribute,$htmlOptions);
+        parent::clientChange('change',$htmlOptions);
         return self::activeTextInputField('text', $model, $attribute, $htmlOptions);
     }
 

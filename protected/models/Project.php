@@ -117,13 +117,119 @@ class Project extends ProjectTrackerActiveRecord
 	}
 
 	/**
-	 * @desc Retrieves a list of valid users for this project.
+	 * Retrieves a list of valid role options.
+	 * @return array an array of valid project roles
+	 */
+	public static function getUserRoleOptions()
+	{
+		$arrRoles = CHtml::listData(Yii::app()->authManager->roles,
+									'name',
+									'name'
+								   );
+
+		return $arrRoles;
+	}
+
+	/**
+	 * Retrieves a list of valid users for this project.
 	 * @return array an array of valid project users indexed by user id.
 	 */
 	public function getUserOptions()	
 	{
-		$arrUsers = CHtml::listData($this->users, 'id', 'username');
+		$arrUsers = CHtml::listData($this->users,
+									'id',
+									'username'
+								   );
 
 		return $arrUsers;
 	}	
+
+	/**
+	 * Assigns a user to the project with the passed in role.
+	 * @param integer $userId the user id to be assigned to the project.
+	 * @param string $role the role the user will have in the project.
+	 */
+	public function assignUser($userId, $role)
+	{
+		$command = Yii::app()->db->createCommand();
+
+		$command->insert('project_user_assignment',
+						 array('role' => $role,
+						 	   'user_id' => $userId,
+						 	   'project_id' => $this->id,
+						 	  )
+						);
+	}
+
+	/**
+	 * Removes a user from the project.
+	 * @param integer $userId the user id to be removed from the project.
+	 */
+	public function removeUser($userId)
+	{
+		$command = Yii::app()->db->createCommand();
+
+		$command->delete('project_user_assignment',
+						 'user_id = :userId AND project_id = :projectId',
+						 array(':userId' => $userId,
+						 	   ':projectId' => $this->id
+						 	  )
+						);
+	}
+
+	/**
+	 * Checks if the current logged in user is assigned to the project
+	 * in the passed in role.
+	 * @param string $role the role to check that the user is a member of.
+	 * @return boolean true if the user is already assigned the role in the project.
+	 */
+	public function allowCurrentUser($role)
+	{
+		$sql = "SELECT * FROM project_user_assignment ";
+		$sql .= "WHERE project_id = :projectId AND user_id = :userId AND role = :role";
+
+		$command = Yii::app()->db->createCommand($sql);
+		
+		$command->bindValue(":projectId",
+							$this->id,
+							PDO::PARAM_INT
+						   );
+
+		$command->bindValue(":userId",
+							Yii::app()->user->id,
+							PDO::PARAM_INT
+						   );
+
+		$command->bindValue(":role",
+							$role,
+							PDO::PARAM_STR
+						   );
+
+		return $command->execute() == 1;
+	}
+
+	/**
+	 * Checks if the passed in user is assigned to the project.
+	 * @param integer $user the role to check that the user is a member of.
+	 * @return boolean true if the user is already assigned to the project.
+	 */
+	public function isUserInProject($user)
+	{
+		$sql = "SELECT user_id FROM project_user_assignment ";
+		$sql .= "WHERE project_id = :projectId AND user_id = :userId";
+
+		$command = Yii::app()->db->createCommand($sql);
+		
+		$command->bindValue(":projectId",
+							$this->id,
+							PDO::PARAM_INT
+						   );
+
+		$command->bindValue(":userId",
+							$user->id,
+							PDO::PARAM_INT
+						   );
+
+		return $command->execute() == 1;
+	}
 }

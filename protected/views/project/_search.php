@@ -17,7 +17,7 @@
     <?php
         echo $form->textFieldControlGroup($model,
                                           'id',
-                                          array('span' => 3,
+                                          array('span' => 5,
                                                )
                                          );
     ?>
@@ -25,7 +25,7 @@
     <?php
         echo $form->textFieldControlGroup($model,
                                           'name',
-                                          array('span' => 3,
+                                          array('span' => 5,
                                                 'maxlength' => 255
                                                )
                                          );
@@ -35,7 +35,7 @@
         echo $form->textAreaControlGroup($model,
                                          'description',
                                          array('rows' => 6,
-                                               'span' => 3
+                                               'span' => 5
                                               )
                                         );
     ?>
@@ -43,7 +43,7 @@
     <?php
         echo $form->textFieldControlGroup($model,
                                           'create_time',
-                                          array('span' => 3,
+                                          array('span' => 5,
                                                )
                                          );
     ?>
@@ -51,7 +51,7 @@
     <?php
         echo $form->textFieldControlGroup($model,
                                           'create_user_id',
-                                          array('span' => 3,
+                                          array('span' => 5,
                                                )
                                          );
     ?>
@@ -59,7 +59,7 @@
     <?php
         echo $form->textFieldControlGroup($model,
                                           'update_time',
-                                          array('span' => 3,
+                                          array('span' => 5,
                                                )
                                          );
     ?>
@@ -67,7 +67,7 @@
     <?php
         echo $form->textFieldControlGroup($model,
                                           'update_user_id',
-                                          array('span' => 3,
+                                          array('span' => 5,
                                                )
                                          );
     ?>

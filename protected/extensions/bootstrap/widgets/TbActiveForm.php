@@ -692,6 +692,36 @@ class TbActiveForm extends CActiveForm
     }
 
     /**
+     * Generates a control group with a custom (pre-rendered) control  for a model attribute
+     * @param string $input the rendered input field.
+     * @param CModel $model the data model.
+     * @param string $attribute the attribute name.
+     * @param array $htmlOptions additional HTML attributes.
+     * @return string the generated row.
+     * @see TbHtml::customActiveControlGroup
+     * 
+     * EXAMPLE:
+     * The below code will be used in your view in a TbActiveForm widget
+     * 
+     * <?php $datePicker = $this->widget('yiiwheels.widgets.datepicker.WhDatePicker', array(
+     *                  'model' => $model,
+     *                  'attribute' => 'event_date',
+         *                      'pluginOptions' => array(
+     *                          'format' => 'yyyy/mm/dd'
+     *                  ),
+     *          ), true); 
+         * ?>
+     *
+     * <?php echo $form->customControlGroup($datePicker, $model, 'event_date'); ?>      
+     * 
+     */
+    public function customControlGroup($input, $model, $attribute, $htmlOptions = array())
+    {
+        $htmlOptions = $this->processControlGroupOptions($model, $attribute, $htmlOptions);
+        return TbHtml::customActiveControlGroup($input, $model, $attribute, $htmlOptions);
+    }
+
+    /**
      * Generates a control group for a model attribute.
      * @param string $type the input type.
      * @param CModel $model the data model.

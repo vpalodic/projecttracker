@@ -6,7 +6,7 @@ class ProjectController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout = '//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -15,31 +15,6 @@ class ProjectController extends Controller
 	{
 		return array('accessControl', // perform access control for CRUD operations
 					 'postOnly + delete', // we only allow deletion via POST request
-					);
-	}
-
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	public function accessRules()
-	{
-		return array(array('allow',  // allow all users to perform 'index' and 'view' actions
-						   'actions' => array('index', 'view'),
-						   'users' => array('*'),
-						  ),
-					 array('allow', // allow authenticated user to perform 'create' and 'update' actions
-					 	   'actions' => array('create', 'update'),
-					 	   'users' => array('@'),
-					 	  ),
-					 array('allow', // allow admin user to perform 'admin' and 'delete' actions
-					 	   'actions' => array('admin', 'delete'),
-					 	   'users' => array('admin'),
-					 	  ),
-					 array('deny',  // deny all users
-					 	   'users' => array('*'),
-					 	  ),
 					);
 	}
 
@@ -85,6 +60,17 @@ class ProjectController extends Controller
 			$model->attributes = $_POST['Project'];
 
 			if($model->save()) {
+                // assign the user creating the new project as an owner of the project,
+                // so they have access to all project features
+                $form = new ProjectUserForm;
+                $form->username = Yii::app()->user->name;
+                $form->project = $model;
+                $form->role = 'owner';
+                
+                if($form->validate()) {
+                    $form->assign();
+                }
+                
 				$this->redirect(array('view', 'id' => $model->id));
 			}
 		}
@@ -110,12 +96,16 @@ class ProjectController extends Controller
 			$model->attributes = $_POST['Project'];
 
 			if($model->save()) {
-				$this->redirect(array('view', 'id' => $model->id));
+				$this->redirect(array('view',
+									  'id' => $model->id
+									 )
+							   );
 			}
 		}
 
 		$this->render('update',
-					  array('model' => $model,)
+					  array('model' => $model,
+					  	   )
 					 );
 	}
 
@@ -147,7 +137,8 @@ class ProjectController extends Controller
 		$dataProvider = new CActiveDataProvider('Project');
 
 		$this->render('index',
-					  array('dataProvider' => $dataProvider,)
+					  array('dataProvider' => $dataProvider,
+					  	   )
 					 );
 	}
 
@@ -164,11 +155,53 @@ class ProjectController extends Controller
 		}
 
 		$this->render('admin',
-					  array('model' => $model,)
+					  array('model' => $model,
+					  	   )
 					 );
 	}
 
-	/**
+        
+    /**
+     * Provides a form so that project administrators can
+     * associate other users to the project
+     */
+    public function actionAdduser($id)
+    {
+        $project = $this->loadModel($id);
+
+        if(!Yii::app()->user->checkAccess('createUser', array('project' => $project))) {
+            throw new CHttpException(403, 'You are not authorized to perform this action.');
+        }
+        
+        $form = new ProjectUserForm; 
+        
+        // Collect user input data
+        if(isset($_POST['ProjectUserForm'])) {
+            $form->attributes = $_POST['ProjectUserForm'];
+            $form->project = $project;
+            
+            // Validate user input
+            if($form->validate()) {
+                if($form->assign()) {
+                    Yii::app()->user->setFlash(TbHtml::ALERT_COLOR_SUCCESS,
+                                               "<strong>" . $form->username . "</strong> has been added to the project."
+                                              ); 
+                    
+                    // Reset the form for another user to be associated if desired
+                    $form->unsetAttributes();
+                    $form->clearErrors();
+                }
+            }
+        }
+        
+        $form->project = $project;
+        $this->render('adduser',
+                      array('model' => $form
+                           )
+                     );
+    }
+
+    /**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded

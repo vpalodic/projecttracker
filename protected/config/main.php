@@ -6,22 +6,21 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+	'basePath'=>dirname(__FILE__) . DIRECTORY_SEPARATOR.'..',
 	'name'=>'Project Tracker',
 
 	'theme' => 'bootstrap',
 
     'aliases' => array(
-        'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'), // change this if necessary
-
-        'yiiwheels' => realpath(__DIR__ . '/../extensions/yiiwheels'), // change if necessary
+        'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'),
+        'yiiwheels' => realpath(__DIR__ . '/../extensions/yiiwheels'),
     ),
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload' => array('log'),
 
 	// autoloading model and component classes
-	'import'=>array(
+	'import' => array(
 		'application.models.*',
 		'application.components.*',
         'ext.YiiMailer.YiiMailer',
@@ -29,21 +28,21 @@ return array(
         'bootstrap.helpers.TbArray',
 	),
 
-	'modules'=>array(
-		'gii'=>array(
+	'modules' => array(
+		'gii' => array(
             'generatorPaths' => array(
                 'bootstrap.gii',
             ),
 			'class' => 'system.gii.GiiModule',
 			'password' => false,
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
-//			'ipFilters' => false,
-			'ipFilters'=>array('127.0.0.1','::1'),
+			'ipFilters' => false,
+//			'ipFilters' => array('127.0.0.1','::1'),
 		),
 	),
 
 	// application components
-	'components'=>array(
+	'components' => array(
         // yiistrap configuration
         'bootstrap' => array(
             'class' => 'bootstrap.components.TbApi',
@@ -54,10 +53,19 @@ return array(
             'class' => 'yiiwheels.YiiWheels',
         ),
 
-		'user'=>array(
+		'user' => array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+			'allowAutoLogin' => true,
 		),
+
+        'authManager' => array(
+            'class' => 'CDbAuthManager',
+            'connectionID' => 'db',
+            'itemTable' => 'auth_item',
+            'itemChildTable' => 'auth_item_child',
+            'assignmentTable' => 'auth_assignment',
+        ),
+
 		// uncomment the following to enable URLs in path-format
 		/*
 		'urlManager'=>array(
@@ -75,7 +83,7 @@ return array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),
 		*/
-		'db'=>array(
+		'db' => array(
 			'connectionString' => 'mysql:host=127.0.0.1;dbname=projecttracker',
 			'emulatePrepare' => true,
 			'username' => 'project_tracker',
@@ -83,19 +91,19 @@ return array(
 			'charset' => 'utf8',
 		),
 		
-		'errorHandler'=>array(
+		'errorHandler' => array(
 			// use 'site/error' action to display errors
-			'errorAction'=>'site/error',
+			'errorAction' => 'site/error',
 		),
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
+		'log' => array(
+			'class' => 'CLogRouter',
+			'routes' => array(
 				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					'class' => 'CFileLogRoute',
+					'levels' => 'error, warning',
 				),
 /*				array(
-					'class'=>'CWebLogRoute',
+					'class' => 'CWebLogRoute',
 				),
 */			),
 		),
@@ -103,8 +111,8 @@ return array(
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
-	'params'=>array(
+	'params' => array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		'adminEmail' => 'webmaster@example.com',
 	),
 );

@@ -29,12 +29,26 @@
 						array('label' => 'Manage Projects',
 							  'url' => array('admin')
 							 ),
+						array('label' => 'View Issues',
+							  'url' => array('issue/index',
+							  				 'pid' => $model->id
+							  				)
+							 ),
 						array('label' => 'Create New Issue',
 							  'url' => array('issue/create',
 							  				 'pid' => $model->id
 							  				)
 							 ),
 					   );
+
+	if(Yii::app()->user->checkAccess('createUser',
+									 array('project' => $model))) {
+		$this->menu[] = array('label' => 'Add Project User',
+							  'url' => array('adduser', 'id' => $model->id
+							 			  )
+							 );
+	}
+
 ?>
 
 <h2><?php echo CHtml::encode($model->name); ?> Details</h2>

@@ -5,7 +5,7 @@
 ?>
 
 <?php
-	if(!Yii::app()->user->isGuest) {
+	if(!Yii::app()->user->isGuest && isset(Yii::app()->user->lastLogin)) {
 		$content = 'You last logged in on ' . Yii::app()->user->lastLogin;
 	} else {
 		$content = '';

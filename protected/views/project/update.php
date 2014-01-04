@@ -25,9 +25,19 @@
 						array('label' => 'Manage Projects',
 							  'url' => array('admin')
 							 ),
+						array('label' => 'View Issues',
+							  'url' => array('issue/view',
+							  				 'pid' => $model->id
+							  				)
+							 ),
 						array('label' => 'Create New Issue',
 							  'url' => array('issue/create',
 							  				 'pid' => $model->id
+							  				)
+							 ),
+						array('label' => 'Add Project User',
+							  'url' => array('adduser',
+							  				 'id' => $model->id
 							  				)
 							 ),
 					   );
