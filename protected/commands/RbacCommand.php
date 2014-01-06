@@ -24,8 +24,9 @@ class RbacCommand extends CConsoleCommand
 		$this->ensureAuthManagerDefined();
 		
 		// provide the oportunity for the use to abort the request
-		$message = "This command will create three roles: Owner, Member, and Reader\n";
+		$message = "This command will create four roles: Admin, Owner, Member, and Reader\n";
 		$message .= " and the following permissions:\n";
+		$message .= "full administrative management access\n";
 		$message .= "create, read, update and delete user\n";
 		$message .= "create, read, update and delete project\n";
 		$message .= "create, read, update and delete issue\n";
@@ -90,6 +91,11 @@ class RbacCommand extends CConsoleCommand
 												 "delete an issue from a project"
 												);
 
+			// create the adminManagement task
+			$this->_authManager->createTask("adminManagement",
+											"access to the application administration functionality"
+										   );
+
 			// create the reader role and add the appropriate 
 			// permissions as children to this role
 			$role = $this->_authManager->createRole("reader"); 
@@ -116,6 +122,17 @@ class RbacCommand extends CConsoleCommand
 			$role->addChild("createProject"); 
 			$role->addChild("updateProject"); 
 			$role->addChild("deleteProject");	
+		
+			// create the admin role, and add the appropriate permissions, 
+			// as well as the reader, member, and owner roles as children
+			$role = $this->_authManager->createRole("admin"); 
+			$role->addChild("reader"); 
+			$role->addChild("member");    
+			$role->addChild("owner"); 
+			$role->addChild("adminManagement");
+
+			// ensure we have at least one admin user
+			$this->_authManager->assign("admin", 5);
 		
 		    // provide a message indicating success
 		    echo "Authorization hierarchy successfully generated.\n";

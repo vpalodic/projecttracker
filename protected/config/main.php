@@ -8,7 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__) . DIRECTORY_SEPARATOR.'..',
 	'name'=>'Project Tracker',
-
+	'id' => 'ProjectTracker',
 	'theme' => 'bootstrap',
 
     'aliases' => array(
@@ -23,6 +23,7 @@ return array(
 	'import' => array(
 		'application.models.*',
 		'application.components.*',
+		'application.modules.admin.models.*',
         'ext.YiiMailer.YiiMailer',
         'bootstrap.helpers.TbHtml',
         'bootstrap.helpers.TbArray',
@@ -39,6 +40,7 @@ return array(
 			'ipFilters' => false,
 //			'ipFilters' => array('127.0.0.1','::1'),
 		),
+		'admin',
 	),
 
 	// application components

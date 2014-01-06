@@ -45,6 +45,21 @@
 					   );
 ?>
 
+<?php
+	if($sysMessage !== null) :
+?>
+	<div class="sys-message">
+		<p><?php echo nl2br(TbHtml::encode($sysMessage)); ?></p>
+	</div>
+<?php
+	Yii::app()->clientScript->registerScript(
+		'fadeAndHideEffect',
+		'$(".sys-message").animate({opacity: 1.0}, 15000).fadeOut("slow");'
+	);
+
+	endif;
+?>
+
 <h2>Projects</h2>
 
 <?php
