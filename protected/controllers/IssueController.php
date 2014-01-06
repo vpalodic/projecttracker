@@ -31,10 +31,16 @@ class IssueController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',
-					  array('model' => $this->loadModel($id),
-					  	   )
-					 );
+		$issue = $this->loadModel($id, true);
+		$comment = $this->createComment($issue);
+
+		$this->render(
+			'view',
+			array(
+				'model' => $issue,
+				'comment' => $comment,
+			)
+		);
 	}
 
 	/**
@@ -161,9 +167,13 @@ class IssueController extends Controller
 	 * @return Issue the loaded model
 	 * @throws CHttpException
 	 */
-	public function loadModel($id)
+	public function loadModel($id, $withComments = false)
 	{
-		$model = Issue::model()->findByPk($id);
+		if($withComments) {
+			$model = Issue::model()->with(array('comments' => array('with'=>'author')))->findByPk($id);
+		} else {
+			$model = Issue::model()->findByPk($id);
+		}
 
 		if($model === null) {
 			throw new CHttpException(404, 'The requested issue does not exist.');
@@ -207,7 +217,7 @@ class IssueController extends Controller
 
 	/**
 	 * @desc In-class defined filter method, configured for use in the above filters()
-	 * method. It is called before the actionCreate() action method is run in order 
+	 * method. It is called before the admin, create, and index actions are run in order 
 	 * to ensures a proper project context has been set.
 	 * @param FilterChain $filterChain the chain of filters
 	 */
@@ -217,10 +227,35 @@ class IssueController extends Controller
 		if(isset($_GET['pid'])) {
 			$this->loadProject($_GET['pid']);
 		} else {
-			throw new CHttpException(405, 'Method not allowed. You must specify a valid project before performing this action');
+			throw new CHttpException(400, 'Bad request. You must specify a valid project before performing this action');
 		}
 
 		// Run the other filters and execute the requested action
 		$filterChain->run();
+	}
+
+	/**
+	 * @desc Hangles the post-back from the Issue View controller action.
+	 * @param Issue $issue
+	 * @return Comment the newly created comment
+	 */
+	protected function createComment($issue)
+	{
+		$comment = new Comment;
+
+		if(isset($_POST['Comment'])) {
+			$comment->attributes = $_POST['Comment'];
+
+			if($issue->addComment($comment)) {
+				Yii::app()->user->setFlash(
+					TbHtml::ALERT_COLOR_INFO,
+					"Your comment has been added."
+				);
+
+				$this->refresh();
+			}
+		}
+
+		return $comment;
 	}
 }

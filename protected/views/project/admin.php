@@ -5,19 +5,46 @@
 
 <?php
 	$this->breadcrumbs = array('Projects' => array('project/index'),
-							   'Manage',
-							  );
+                             'Manage',
+                            );
 
-	$this->menu = array(array('label' => 'List Projects',
-							  'url' => array('index')
-							 ),
-						array('label' => 'Create Project',
-							  'url' => array('create')
-							 ),
-						array('label' => 'Manage Projects',
-							  'url' => array('admin')
-							 ),
-					   );
+  $this->menu = array(array('label' => 'Projects',
+                            'items' => array(array('label' => 'List Projects',
+                                                   'url' => array('index'),
+                                                  ),
+                                             array('label' => 'View Project',
+                                                   'url' => '#',
+                                                   'disabled' => true,
+                                                  ),
+                                             array('label' => 'Create Project',
+                                                   'url' => array('create')
+                                                  ),
+                                             array('label' => 'Update Project',
+                                                   'url' => '#',
+                                                   'disabled' => true,
+                                                  ),
+                                             array('label' => 'Delete Project',
+                                                   'url' => '#',
+                                                   'disabled' => true,
+                                                  ),
+                                             TbHtml::menuDivider(),
+                                             array('label' => 'Manage Projects',
+                                                   'url' => '#',
+                                                   'active' => true
+                                                   ),
+                                            )
+                           ),
+                      array('label' => 'Project Issues',
+                            'items' => array(),
+                            'url' => '#',
+                            'disabled' => true
+                           ),
+                      array('label' => 'Project Users',
+                            'items' => array(),
+                            'url' => '#',
+                            'disabled' => true
+                           )
+                     );
 
     Yii::app()->clientScript->registerScript('search',
                                              "$('.search-button').click(function()

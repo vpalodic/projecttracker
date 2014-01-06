@@ -5,21 +5,78 @@
 ?>
 
 <?php
-    $this->pageTitle = Yii::app()->name . ' - Add User';
+  $this->pageTitle = Yii::app()->name . ' - Add User';
 
 	$this->breadcrumbs = array('Projects' => array('index'),
-                               CHtml::encode($model->project->name) => array('view',
-                                                                             'id' => $model->project->id
-                                                                   ),
-                               'Add User'
-                              );
+                             $model->project->name => array('view',
+                                                            'id' => $model->project->id
+                                                           ),
+                             'Add User'
+                            );
 
-	$this->menu = array(array('label' => 'Back to ' . CHtml::encode($model->project->name),
-							  'url' => array('view',
-                                             'id' => $model->project->id
+  $this->menu = array(array('label' => 'Projects',
+                            'items' => array(array('label' => 'List Projects',
+                                                   'url' => array('index')
+                                                  ),
+                                             array('label' => 'View Project',
+                                                   'url' => '#',
+                                                  ),
+                                             array('label' => 'Create Project',
+                                                   'url' => array('create')
+                                                  ),
+                                             array('label' => 'Update Project',
+                                                   'url' => array('update',
+                                                                  'id' => $model->project->id
+                                                                 )
+                                                  ),
+                                             array('label' => 'Delete Project',
+                                                   'url' => '#',
+                                                   'disabled' => true
+                                                  ),
+                                             TbHtml::menuDivider(),
+                                             array('label' => 'Manage Projects',
+                                                   'url' => array('admin')
+                                                  ),
                                             )
-							 ),
-					   );
+                           ),
+                      array('label' => 'Project Issues',
+                            'items' => array(array('label' => 'List Issues',
+                                                   'url' => array('issue/index',
+                                                                  'pid' => $model->project->id
+                                                                 )
+                                                  ),
+                                             array('label' => 'View Issue',
+                                                   'url' => '#',
+                                                   'disabled' => true
+                                                  ),
+                                             array('label' => 'Update Issue',
+                                                   'url' => '#',
+                                                   'disabled' => true
+                                                  ),
+                                             array('label' => 'Create Issue',
+                                                   'url' => array('issue/create',
+                                                                  'pid' => $model->project->id
+                                                                 )
+                                                  ),
+                                             array('label' => 'Delete Issue',
+                                                   'url' => '#',
+                                                   'disabled' => true
+                                                  ),
+                                            array('label' => 'Manage Issues',
+                                                   'url' => array('issue/admin',
+                                                                  'pid' => $model->project->id
+                                                                 )
+                                                  ),
+                                            )
+                           ),
+                      array('label' => 'Project Users',
+                            'items' => array(array('label' => 'Add Project User',
+                                                   'url' => '#',
+                                                   'active' => true
+                                                  ),
+                                            )
+                           )
+                     );
 ?>
 
 <?php $this->widget('bootstrap.widgets.TbAlert'); ?>
@@ -50,10 +107,8 @@
                                                 'source' => $model->usernameList,
                                                 'model' => $model,
                                                 'attribute' => 'username',
-//                                                'options' => array('minLength' => '2',
-//                                                                  ),
                                                 'htmlOptions' => array('placeholder' => 'Type a username',
-//                                                                       'style' => 'height:20px;',                                                                       
+                                                                       'class' => 'span6',
                                                                       ),
                                                ),
                                           true
@@ -63,7 +118,6 @@
                                            $model,
                                            'username',
                                            array('help' => 'Enter a valid username',
-                                                 'span' => 5
                                                 )
                                           );
         ?>
@@ -72,7 +126,7 @@
             echo $form->dropDownListControlGroup($model,
                                                  'role',
                                                  Project::getUserRoleOptions(),
-                                                 array('span' => 5
+                                                 array('span' => 6
                                                       )
                                                 );
         ?>

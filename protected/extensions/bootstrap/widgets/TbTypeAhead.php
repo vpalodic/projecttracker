@@ -118,8 +118,8 @@ class TbTypeAhead extends CInputWidget
 //        TbArray::defaultValue('name', $name, $this->htmlOptions);
         if(isset($this->htmlOptions['id']))
             $id = $this->htmlOptions['id'];
-        else
-            $this->htmlOptions['id'] = $id;
+//        else
+//            $this->htmlOptions['id'] = $id;
         if(isset($this->htmlOptions['name']))
             $name = $this->htmlOptions['name'];
 

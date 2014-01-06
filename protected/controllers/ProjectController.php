@@ -26,6 +26,17 @@ class ProjectController extends Controller
 	{
 		$project = $this->loadModel($id);
 
+		Yii::app()->clientScript->registerLinkTag(
+			'alternate',
+			'application/rss+xml',
+			$this->createUrl(
+				'comment/feed',
+				array(
+					'pid' => $id,
+				)
+			)
+		);
+
 		$criteria = new CDbCriteria(array('order' => 'create_time desc',
 										  'condition' => 'project_id = :projectId',
 										  'params' => array(':projectId' => $project->id)
@@ -135,6 +146,12 @@ class ProjectController extends Controller
 	public function actionIndex()
 	{
 		$dataProvider = new CActiveDataProvider('Project');
+
+		Yii::app()->clientScript->registerLinkTag(
+			'alternate',
+			'application/rss+xml',
+			$this->createUrl('comment/feed')
+		);
 
 		$this->render('index',
 					  array('dataProvider' => $dataProvider,

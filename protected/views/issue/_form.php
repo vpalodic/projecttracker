@@ -28,7 +28,7 @@
         <?php
             echo $form->textFieldControlGroup($model,
                                               'name',
-                                              array('span' => 3,
+                                              array('span' => 6,
                                                     'maxlength' => 255
                                                    )
                                              );
@@ -38,7 +38,7 @@
             echo $form->textAreaControlGroup($model,
                                              'description',
                                              array('rows' => 6,
-                                                   'span' => 3
+                                                   'span' => 6
                                                   )
                                             );
         ?>
@@ -47,7 +47,7 @@
             echo $form->dropDownListControlGroup($model,
                                                  'type_id',
                                                  $model->typeOptions,
-                                                 array('span' => 3
+                                                 array('span' => 6
                                                       )
                                                 );
         ?>
@@ -56,7 +56,7 @@
             echo $form->dropDownListControlGroup($model,
                                                  'status_id',
                                                  $model->statusOptions,
-                                                 array('span' => 3
+                                                 array('span' => 6
                                                       )
                                                 );
         ?>
@@ -65,7 +65,7 @@
             echo $form->dropDownListControlGroup($model,
                                                  'owner_id',
                                                  $model->project->userOptions,
-                                                 array('span' => 3
+                                                 array('span' => 6
                                                       )
                                                 );
         ?>
@@ -74,7 +74,7 @@
             echo $form->dropDownListControlGroup($model,
                                                  'requester_id',
                                                  $model->project->userOptions,
-                                                 array('span' => 3
+                                                 array('span' => 6
                                                       )
                                                 );
         ?>

@@ -14,22 +14,22 @@
 class ProjectUserForm extends CFormModel
 {
 	/**
-	 * @var string username of the user being added to the project
+	 * @var string $username of the user being added to the project
 	 */
 	public $username;
 	
 	/**
-	 * @var string the role to which the user will be associated within the project
+	 * @var string $role the role to which the user will be associated within the project
 	 */
 	public $role; 
 	
 	/**
-	 * @var object an instance of the Project AR model class
+	 * @var Project $project an instance of the Project AR model class
 	 */ 
 	public $project;
 	
     /**
-	 * @var object an instance of the User AR model class
+	 * @var User $_user an instance of the User AR model class
 	 */ 
 	private $_user;
 	

@@ -21,6 +21,8 @@
  * @property User $requester
  * @property User $owner
  * @property Project $project
+ * @property Comment[] $comments
+ * @property integer $commentCount
  */
 class Issue extends ProjectTrackerActiveRecord
 {
@@ -89,6 +91,8 @@ class Issue extends ProjectTrackerActiveRecord
 			'requester' => array(self::BELONGS_TO, 'User', 'requester_id'),
 			'owner' => array(self::BELONGS_TO, 'User', 'owner_id'),
 			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+			'comments' => array(self::HAS_MANY, 'Comment', 'issue_id'),
+			'commentCount' => array(self::STAT, 'Comment', 'issue_id'),
 		);
 	}
 
@@ -261,5 +265,16 @@ class Issue extends ProjectTrackerActiveRecord
 		} else {
 			return "Unknown requester";
 		}
+	}
+
+	/**
+	 * Adds a comment to this issue
+	 * @param Comment the comment AR instance to add to the issue
+	 * @return boolean true if comment was successfully added to the issue
+	 */
+	public function addComment($comment)
+	{
+		$comment->issue_id = $this->id;
+		return $comment->save();
 	}
 }

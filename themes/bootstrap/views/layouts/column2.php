@@ -9,8 +9,10 @@
                                     )
                               );
                 $this->widget('bootstrap.widgets.TbNav',
-                              array('items' => $this->menu,
-                                    'htmlOptions' => array('class' => 'operations'),
+                              array('type' => TbHtml::NAV_TYPE_LIST,
+                                    'activateParents' => true,
+                                    'items' => $this->menu,
+                                    'htmlOptions' => array('class' => 'bs-docs-sidenav'),
                                    )
                              );
             $this->endWidget();

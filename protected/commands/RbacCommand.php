@@ -49,7 +49,7 @@ class RbacCommand extends CConsoleCommand
 			 									);
 
 			$this->_authManager->createOperation("updateUser",
-			 									 "update a users in-formation"
+			 									 "update a users information"
 			 									);
 
 			$this->_authManager->createOperation("deleteUser",

@@ -5,50 +5,85 @@
 
 <?php
 	$this->breadcrumbs = array('Projects' => array('index'),
-                               CHtml::encode($model->name),
+                               $model->name,
                               );
 
-	$this->menu = array(array('label' => 'List Projects',
-							  'url' => array('index')
+	$this->menu = array(array('label' => 'Projects',
+							  'items' => array(array('label' => 'List Projects',
+							  						 'url' => array('index')
+							  						),
+							  				   array('label' => 'View Project',
+							  				   		 'url' => '#',
+							  				   		 'active' => true
+							  				   		),
+							  				   array('label' => 'Create Project',
+							  				   		 'url' => array('create')
+							  				   		),
+							  				   array('label' => 'Update Project',
+							  				   		 'url' => array('update',
+							  				   		 				'id' => $model->id
+							  				   		 			   )
+							  				   		),
+							  				   array('label' => 'Delete Project',
+							  				   		 'url' => '#',
+							  				   		 'linkOptions' => array('submit' => array('delete',
+							  				   		 										  'id' => $model->id
+							  				   		 										 ),
+							  						 						'confirm' => 'Are you sure you want to delete this item?'
+							 											   )
+													),
+							  				   TbHtml::menuDivider(),
+							  				   array('label' => 'Manage Projects',
+							  				   		 'url' => array('admin')
+							  				   		),
+							  				  )
 							 ),
-						array('label' => 'Create Project',
-							  'url' => array('create')
+						array('label' => 'Project Issues',
+							  'items' => array(array('label' => 'List Issues',
+							  						 'url' => array('issue/index',
+							  						 				'pid' => $model->id
+							  						 			   )
+							  						),
+							  				   array('label' => 'View Issue',
+							  				   		 'url' => '#',
+							  				   		 'disabled' => true
+							  				   		),
+							  				   array('label' => 'Update Issue',
+							  				   		 'url' => '#',
+							  				   		 'disabled' => true
+							  				   		),
+							  				   array('label' => 'Create Issue',
+							  				   		 'url' => array('issue/create',
+							  				   		 			    'pid' => $model->id
+							  				   		 			   )
+							  				   		),
+											   array('label' => 'Delete Issue',
+							  						 'url' => '#',
+							  						 'disabled' => true
+							 						),
+							  				   array('label' => 'Manage Issues',
+							  				   		 'url' => array('issue/admin',
+							  				   		 			    'pid' => $model->id
+							  				   		 			   )
+							  				   		),
+							  				  )
 							 ),
-						array('label' => 'Update Project',
-							  'url' => array('update',
-                                             'id' => $model->id)
-							 ),
-						array('label' => 'Delete Project',
-							  'url' => '#',
-							  'linkOptions' => array('submit' => array('delete',
-							  										   'id' => $model->id
-							  										  ),
-							  						 'confirm' => 'Are you sure you want to delete this item?'
-							 						)
-							 ),
-						array('label' => 'Manage Projects',
-							  'url' => array('admin')
-							 ),
-						array('label' => 'View Issues',
-							  'url' => array('issue/index',
-							  				 'pid' => $model->id
-							  				)
-							 ),
-						array('label' => 'Create New Issue',
-							  'url' => array('issue/create',
-							  				 'pid' => $model->id
-							  				)
-							 ),
+						array('label' => 'Project Users',
+							  'items' => array()
+							 )
 					   );
 
 	if(Yii::app()->user->checkAccess('createUser',
 									 array('project' => $model))) {
-		$this->menu[] = array('label' => 'Add Project User',
-							  'url' => array('adduser', 'id' => $model->id
-							 			  )
-							 );
+		$this->menu[2]['items'][] = array('label' => 'Add Project User',
+										  'url' => array('adduser',
+										  				 'id' => $model->id
+							 			  				)
+							 			 );
+	} else {
+		$this->menu[2]['url'] = '#';
+		$this->menu[2]['disabled'] = true;
 	}
-
 ?>
 
 <h2><?php echo CHtml::encode($model->name); ?> Details</h2>
@@ -82,4 +117,18 @@
 				  		'itemView' => '/issue/_view',
 				  	   )
 				 );
+
+	$this->beginWidget('zii.widgets.CPortlet',
+                               array('title' => 'Recent Comments',
+                                    )
+                              );
+
+		$this->widget(
+			'RecentCommentsWidget',
+			array(
+				'projectId' => $model->id
+			)
+		);
+
+	$this->endWidget();
 ?>

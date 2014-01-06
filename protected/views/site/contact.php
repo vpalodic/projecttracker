@@ -40,22 +40,33 @@ If you have business inquiries or other questions, please fill out the following
 
         <?php
             echo $form->textFieldControlGroup($model,
-                                              'name');
+                                              'name',
+                                              array('span' => 6,
+                                                   )
+                                             );
         ?>
 
         <?php
             echo $form->emailFieldControlGroup($model,
-                                               'email');
+                                               'email',
+                                               array('span' => 6,
+                                                    )
+                                              );
         ?>
 
         <?php echo $form->textFieldControlGroup($model,
                                                 'subject',
-                                                array('maxlength'=>128));
+                                                array('span' => 6,
+                                                      'maxlength' => 128
+                                                     )
+                                               );
         ?>
 
         <?php echo $form->textAreaControlGroup($model,
                                                'body',
-                                               array('rows'=>6, 'class'=>'span5'));
+                                               array('rows' => 6,
+                                                     'span' => 6
+                                                    ));
         ?>
 
         <?php if(CCaptcha::checkRequirements()) : ?>
@@ -64,7 +75,10 @@ If you have business inquiries or other questions, please fill out the following
             </div>
 
             <?php echo $form->textFieldControlGroup($model,
-                                                    'verifyCode');
+                                                    'verifyCode',
+                                                    array('span' => 6,
+                                                         )
+                                                   );
             ?>
 
             <div class="control-group">

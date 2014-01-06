@@ -28,7 +28,7 @@
         <?php
             echo $form->textFieldControlGroup($model,
                                               'username',
-                                              array('span' => 3,
+                                              array('span' => 6,
                                                     'maxlength' => 255
                                                    )
                                              );
@@ -37,7 +37,7 @@
         <?php
             echo $form->emailFieldControlGroup($model,
                                                'email',
-                                               array('span' => 3,
+                                               array('span' => 6,
                                                      'maxlength' => 255
                                                     )
                                               );
@@ -46,7 +46,7 @@
         <?php
             echo $form->passwordFieldControlGroup($model,
                                                   'password',
-                                                  array('span' => 3,
+                                                  array('span' => 6,
                                                         'maxlength' => 255
                                                        )
                                                  );
@@ -55,7 +55,7 @@
         <?php
             echo $form->passwordFieldControlGroup($model,
                                                   'password_repeat',
-                                                  array('span' => 3,
+                                                  array('span' => 6,
                                                         'maxlength' => 255
                                                        )
                                                  );

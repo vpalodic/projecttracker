@@ -35,20 +35,25 @@
         <?php
             echo $form->textFieldControlGroup($model,
                                               'username',
-                                              array('help' => 'Enter a valid username or e-mail address',
+                                              array('span' => 6,
+                                                    'help' => 'Enter a valid username or e-mail address',
                                                    )
                                              );
         ?>
 
         <?php
             echo $form->passwordFieldControlGroup($model,
-                                                  'password'
+                                                  'password',
+                                                  array('span' => 6,
+                                                       )
                                                  );
         ?>
 
         <?php
             echo $form->checkBoxControlGroup($model,
-                                             'rememberMe'
+                                             'rememberMe',
+                                             array('span' => 6,
+                                                  )
                                             );
         ?>
 

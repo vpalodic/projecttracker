@@ -28,7 +28,7 @@
         <?php
             echo $form->textFieldControlGroup($model,
                                               'name',
-                                              array('span' => 5,
+                                              array('span' => 6,
                                                     'maxlength' => 255
                                                    )
                                              );
@@ -38,7 +38,7 @@
             echo $form->textAreaControlGroup($model,
                                              'description',
                                              array('rows' => 6,
-                                                   'span' => 5
+                                                   'span' => 6
                                                   )
                                             );
         ?>
