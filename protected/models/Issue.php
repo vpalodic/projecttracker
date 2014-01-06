@@ -111,7 +111,7 @@ class Issue extends ProjectTrackerActiveRecord
 			'owner_id' => 'Owner',
 			'requester_id' => 'Requester',
 			'create_time' => 'Created Time',
-			'create_user_id' => 'Create By User',
+			'create_user_id' => 'Created By User',
 			'update_time' => 'Updated Time',
 			'update_user_id' => 'Updated By User',
 		);
@@ -242,8 +242,8 @@ class Issue extends ProjectTrackerActiveRecord
 	}
 
 	/**
-	 * @desc Retrieves the text for the type_id.
-	 * @return string the type text or unknown type.
+	 * @desc Retrieves the text for the owner_id.
+	 * @return string the owner text or unknown owner.
 	 */
 	public function getOwnerText()	
 	{
@@ -255,8 +255,8 @@ class Issue extends ProjectTrackerActiveRecord
 	}
 
 	/**
-	 * @desc Retrieves a list of issue statuses.
-	 * @return array an array of available issue statuses.
+	 * @desc Retrieves the text for the requester_id.
+	 * @return string the requester text or unknown requester.
 	 */
 	public function getRequesterText()	
 	{

@@ -15,6 +15,8 @@
  * The followings are the available model relations:
  * @property Issue[] $issues
  * @property User[] $users
+ * @property User $createdBy
+ * @property User $updatedBy
  */
 class Project extends ProjectTrackerActiveRecord
 {
@@ -58,6 +60,8 @@ class Project extends ProjectTrackerActiveRecord
         // class name for the relations automatically generated below.
         return array('issues' => array(self::HAS_MANY, 'Issue', 'project_id'),
         			 'users' => array(self::MANY_MANY, 'User', 'project_user_assignment(project_id, user_id)'),
+					 'createdBy' => array(self::HAS_ONE, 'User', array('id' => 'create_user_id'), 'select' => array('id', 'username')),
+					 'updatedBy' => array(self::HAS_ONE, 'User', array('id' => 'update_user_id'), 'select' => array('id', 'username')),
         			);
 	}
 
@@ -69,10 +73,10 @@ class Project extends ProjectTrackerActiveRecord
 		return array('id' => 'ID',
 					 'name' => 'Name',
 					 'description' => 'Description',
-					 'create_time' => 'Create Time',
-					 'create_user_id' => 'Create User',
-					 'update_time' => 'Update Time',
-					 'update_user_id' => 'Update User',
+					 'create_time' => 'Created On',
+					 'create_user_id' => 'Created By',
+					 'update_time' => 'Updated On',
+					 'update_user_id' => 'Updated By',
 					);
 	}
 
@@ -102,7 +106,7 @@ class Project extends ProjectTrackerActiveRecord
 		$criteria->compare('update_time', $this->update_time, true);
 		$criteria->compare('update_user_id', $this->update_user_id);
 
-		return new CActiveDataProvider($this, array('criteria'=>$criteria,));
+		return new CActiveDataProvider($this, array('criteria' => $criteria,));
 	}
 
 	/**
@@ -114,6 +118,32 @@ class Project extends ProjectTrackerActiveRecord
 	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	/**
+	 * @desc Retrieves the text for the create_user_id.
+	 * @return string the creator text or unknown creator.
+	 */
+	public function getCreatorText()	
+	{
+		if(isset($this->create_user_id) && isset($this->createdBy)) {
+			return $this->createdBy->username;
+		} else {
+			return "Unknown creator";
+		}
+	}
+
+	/**
+	 * @desc Retrieves a list of issue statuses.
+	 * @return string the updater text or unknown updater.
+	 */
+	public function getUpdaterText()	
+	{
+		if(isset($this->update_user_id) && isset($this->updatedBy)) {
+			return $this->updatedBy->username;
+		} else {
+			return "Unknown updater";
+		}
 	}
 
 	/**
