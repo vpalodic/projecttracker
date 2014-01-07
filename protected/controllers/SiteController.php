@@ -112,4 +112,14 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+	/**
+	 * Displays the current in memory logs.
+	 */
+	public function actionShowLogs()
+	{
+		echo "Logged Messages:<br /><br />";
+		
+		CVarDumper::dump(Yii::getLogger()->getLogs());
+	}
 }
