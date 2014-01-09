@@ -5,8 +5,26 @@
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
+
+/**
+ * Helper function to easily join to paths
+ * @param string $dir1
+ * @param string $dir2
+ * @return string Returns canonicalized absolute pathname
+ */
+function _joinpath($dir1, $dir2)
+{
+    return realpath($dir1 . DIRECTORY_SEPARATOR . $dir2);
+}
+
+$homePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
+$protectedPath = _joinpath($homePath, 'protected');
+$webrootPath = _joinpath($homePath, 'www');
+$runtimePath = _joinpath($homePath, 'runtime');
+
 return array(
-	'basePath'=>dirname(__FILE__) . DIRECTORY_SEPARATOR.'..',
+    'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+    'runtimePath' => $runtimePath,
 	'name'=>'Project Tracker',
 	'id' => 'ProjectTracker',
 	'theme' => 'bootstrap',
@@ -38,7 +56,7 @@ return array(
 			'password' => false,
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters' => false,
-//			'ipFilters' => array('127.0.0.1','::1'),
+			'ipFilters' => array('127.0.0.1','::1'),
 		),
 		'admin',
 	),

@@ -103,7 +103,7 @@
 
         <?php
             $autocomplete = $this->widget('bootstrap.widgets.TbTypeAhead',
-                                          array('name' => 'username',
+                                          array(//'name' => 'username',
                                                 'source' => $model->usernameList,
                                                 'model' => $model,
                                                 'attribute' => 'username',

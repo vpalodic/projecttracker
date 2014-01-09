@@ -1,2 +1,4 @@
-protected/runtime/*
-assets/*
+runtime/*
+www/assets/*
+protected/config/*
+/nbproject/private/
